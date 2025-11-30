@@ -38,6 +38,42 @@
                       └──────┬───────┘
                              ↓
                       VERIFIED RESPONSE
+
+## ⚡ BFS Processing Strategy
+
+**This architecture uses Breadth-First Search (BFS), NOT Depth-First Search (DFS):**
+
+```
+BFS Layer-by-Layer Processing:
+
+Layer 1: Query Analysis (parallel)
+  ├─ Intent Classification
+  ├─ Entity Extraction  
+  └─ Query Expansion
+         ↓
+Layer 2: Retrieval (parallel across stores)
+  ├─ Vector Store (async)
+  ├─ Knowledge Graph (async)
+  └─ Cognitive Synthesis (async)
+         ↓
+Layer 3: Context Assembly (wait for all)
+  └─ Augmented Context
+         ↓
+Layer 4: Generation
+  └─ LLM (GPT-4)
+         ↓
+Layer 5: Verification
+  └─ Citation Check
+```
+
+**Why BFS > DFS:**
+- ✅ **Parallelization**: All layer nodes execute simultaneously
+- ✅ **Predictable Latency**: Fixed depth = consistent response time
+- ✅ **Resource Efficiency**: No stack overflow, bounded memory
+- ✅ **Observability**: Clear metrics per processing layer
+- ✅ **Fault Tolerance**: Layer failures don't cascade
+- ❌ **DFS would**: Sequential processing, unpredictable depth, recursion issues
+
 ```
 
 ## 🎯 What This Architecture Does
